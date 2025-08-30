@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Anonymous</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}">🙈 Ask Anonymous</a>
+        </div>
+        <div class="nav-links">
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('signup') }}">Signup</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Share. Express. Stay Anonymous.</h1>
+        <p>
+            Get honest confessions, TBHs, and secret messages from your friends.  
+            No names, no pressure — just pure truth. 🌸
+        </p>
+        
+        <div class="hero-buttons">
+            {% if 'user_id' not in session %}
+                <a href="{{ url_for('signup') }}" class="btn primary">🚀 Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn secondary">Login</a>
+            {% else %}
+                <a href="{{ url_for('dashboard') }}" class="btn primary">Go to Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Ask Anonymous. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
