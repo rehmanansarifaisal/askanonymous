@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Your Profile Link</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+      function copyLink() {
+          const linkText = document.getElementById("profileLink").textContent;
+          navigator.clipboard.writeText(linkText).then(() => {
+              const msg = document.getElementById("copiedMsg");
+              msg.style.display = "block";
+              setTimeout(() => { msg.style.display = "none"; }, 2000);
+          });
+      }
+  </script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+      <div class="logo"><a href="{{ url_for('index') }}">Ask Anonymous</a></div>
+      <div class="nav-links">
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
+  </nav>
+
+  <!-- Share Link Section -->
+  <div class="auth-container">
+      <div class="auth-card">
+          <h2>🚀 Share Your Unique Link</h2>
+          <p>Send this link to friends so they can send you anonymous messages.</p>
+
+          <div class="input-group">
+              <label>Your Link</label>
+              <p id="profileLink" 
+                 style="word-break: break-all; background: rgba(255,255,255,0.2); 
+                        padding: 12px; border-radius: 10px; font-size: 0.95rem; 
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+                  {{ profile_link }}
+              </p>
+          </div>
+
+          <button class="btn primary" onclick="copyLink()">Copy Link</button>
+          <p id="copiedMsg" style="display:none; margin-top:10px; color:#43e97b; font-weight:500;">
+              ✅ Link copied!
+          </p>
+      </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <p>© 2025 Ask Anonymous. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

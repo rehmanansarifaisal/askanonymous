@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Dashboard - Ask Anonymous</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+      <div class="logo"><a href="{{ url_for('index') }}">Ask Anonymous</a></div>
+      <div class="nav-links">
+          <a href="{{ url_for('dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
+  </nav>
+
+  <!-- Dashboard -->
+  <div class="dashboard-container">
+      <h2>Welcome, {{ session['username'] }}</h2>
+
+      <!-- Unique Link Section -->
+      <div class="auth-card" style="margin-bottom: 25px;">
+          <h3>📎 Your Unique Link</h3>
+          <p style="margin-bottom:10px; color:#eee;">Share this link with friends so they can send you anonymous messages.</p>
+
+          <input type="text" id="profileLink" value="{{ profile_link }}" readonly
+                 style="padding:10px; border-radius:8px; width:100%; margin-top:10px; border:none; text-align:center; background:rgba(255,255,255,0.2); color:#fff;">
+          
+          <button class="btn secondary" onclick="copyLink()" style="margin-top:15px;">Copy Link</button>
+          <p id="copiedMsg" style="display:none; margin-top:10px; color:#43e97b; font-weight:500;">
+              ✅ Link copied!
+          </p>
+      </div>
+
+      <!-- Messages Section -->
+      <h3 style="margin: 20px 0; text-align:center;">📨 Received Messages</h3>
+
+      {% if messages %}
+          {% for msg in messages %}
+              <div class="message-card">
+                  <p>{{ msg[2] }}</p>
+                  <small>Received on: {{ msg[3] }}</small>
+              </div>
+          {% endfor %}
+      {% else %}
+          <p style="text-align:center; margin-top:20px;">No messages yet. Share your link to get started!</p>
+      {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <p>© 2025 Ask Anonymous | Made with ❤️</p>
+  </footer>
+
+  <!-- Copy Script -->
+  <script>
+      function copyLink() {
+          const linkText = document.getElementById("profileLink").value;
+          navigator.clipboard.writeText(linkText).then(() => {
+              const msg = document.getElementById("copiedMsg");
+              msg.style.display = "block";
+              setTimeout(() => { msg.style.display = "none"; }, 2000);
+          });
+      }
+  </script>
+
+</body>
+</html>

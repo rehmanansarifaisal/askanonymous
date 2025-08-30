@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Ask Anonymous</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+      <div class="logo"><a href="{{ url_for('index') }}">Ask Anonymous</a></div>
+      <div class="nav-links">
+          <a href="{{ url_for('signup') }}">Sign Up</a>
+      </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="auth-container">
+      <div class="auth-card">
+          <h2>Welcome Back</h2>
+          <p>Login to continue to your dashboard</p>
+
+          <form method="POST">
+              <div class="input-group">
+                  <label for="username">Username</label>
+                  <input type="text" id="username" name="username" placeholder="Enter your username" required>
+              </div>
+
+              <div class="input-group">
+                  <label for="password">Password</label>
+                  <input type="password" id="password" name="password" placeholder="Enter your password" required>
+              </div>
+
+              <button type="submit" class="btn primary">Login</button>
+          </form>
+
+          <p class="switch-auth">Don't have an account? 
+              <a href="{{ url_for('signup') }}">Sign up</a>
+          </p>
+      </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <p>© 2025 Ask Anonymous. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

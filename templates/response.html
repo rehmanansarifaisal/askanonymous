@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send Anonymous Message</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+      <div class="logo"><a href="{{ url_for('index') }}">Ask Anonymous</a></div>
+      <div class="nav-links">
+          <a href="{{ url_for('login') }}">Login</a>
+          <a href="{{ url_for('signup') }}">Sign Up</a>
+      </div>
+  </nav>
+
+  <!-- Response Form -->
+  <div class="auth-container">
+      <div class="auth-card">
+          <h2>Send an Anonymous Message to <span style="color:#6c63ff;">{{ username }}</span></h2>
+          <p style="margin-bottom:20px;">Write your thoughts below. Your name will stay hidden from the user.</p>
+
+          <form method="POST">
+              <div class="input-group">
+                  <label for="sender_name">Your Name</label>
+                  <input type="text" id="sender_name" name="sender_name" placeholder="Enter your name (only admin can see)">
+              </div>
+
+              <div class="input-group">
+                  <label for="message">Your Message</label>
+                  <textarea id="message" name="message" rows="6" placeholder="Type your message here..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn secondary">🚀 Send Message</button>
+          </form>
+      </div>
+  </div>
+
+  <!-- Invitation to Create Account -->
+  <div class="auth-container" style="margin-top:30px;">
+      <div class="auth-card" style="max-width:500px;">
+          <h2>✨ Want to receive messages too?</h2>
+          <p>Create your own account and share your unique link with friends to get honest and anonymous feedback.</p>
+          <a href="{{ url_for('signup') }}" class="btn primary">Create Your Free Account</a>
+      </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <p>© 2025 Ask Anonymous. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Ask Anonymous</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+      <div class="logo"><a href="{{ url_for('index') }}">Ask Anonymous</a></div>
+      <div class="nav-links">
+          <a href="{{ url_for('admin') }}">Admin Dashboard</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
+  </nav>
+
+  <!-- Admin Dashboard -->
+  <div class="dashboard-container">
+      <h2>Admin Dashboard</h2>
+      <p style="text-align:center; margin-bottom:20px;">All users and their received anonymous messages (with sender info)</p>
+
+      {% if users %}
+          {% for user in users %}
+              <div class="message-card">
+                  <h3>{{ user[1] }}</h3>
+                  <p><strong>Profile Link:</strong> 
+                     <a href="{{ url_for('response_page', username=user[1]) }}" target="_blank" style="color:#ffd369;">
+                        {{ request.host_url }}u/{{ user[1] }}
+                     </a>
+                  </p>
+
+                  {% set user_messages = [] %}
+                  {% for msg in messages %}
+                      {% if msg[1] == user[0] %}
+                          {% set _ = user_messages.append(msg) %}
+                      {% endif %}
+                  {% endfor %}
+
+                  {% if user_messages %}
+                      <ul style="margin-top:15px; list-style:none; padding-left:0;">
+                          {% for msg in user_messages %}
+                              <li class="message-card" style="background:rgba(255,255,255,0.05); margin-bottom:10px;">
+                                  <p>{{ msg[2] }}</p>
+                                  <small>
+                                      📅 {{ msg[3] }}  
+                                      {% if msg[4] %}
+                                          | 🧑 Sender: <strong>{{ msg[4] }}</strong>
+                                      {% else %}
+                                          | 🧑 Sender: <em>Anonymous</em>
+                                      {% endif %}
+                                  </small>
+                              </li>
+                          {% endfor %}
+                      </ul>
+                  {% else %}
+                      <p style="font-size:0.9rem; margin-top:10px;">No messages for this user.</p>
+                  {% endif %}
+              </div>
+          {% endfor %}
+      {% else %}
+          <p style="text-align:center; margin-top:20px;">No users found.</p>
+      {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <p>© 2025 Ask Anonymous | Admin Panel</p>
+  </footer>
+
+</body>
+</html>
